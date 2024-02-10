@@ -1,0 +1,73 @@
+local MiniGUI = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UsernameLabel = Instance.new("TextLabel")
+local UsernameTextBox = Instance.new("TextBox")
+local BanReasonLabel = Instance.new("TextLabel")
+local BanReasonTextBox = Instance.new("TextBox")
+local KickButton = Instance.new("TextButton")
+
+MiniGUI.Name = "MiniGUI"
+MiniGUI.Parent = game.CoreGui
+
+Frame.Parent = MiniGUI
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.Position = UDim2.new(0.5, -125, 0.5, -125)
+Frame.Size = UDim2.new(0, 250, 0, 250)
+
+UsernameLabel.Parent = Frame
+UsernameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UsernameLabel.Position = UDim2.new(0.05, 0, 0.1, 0)
+UsernameLabel.Size = UDim2.new(0.9, 0, 0.1, 0)
+UsernameLabel.Text = "Enter player username:"
+
+UsernameTextBox.Parent = Frame
+UsernameTextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UsernameTextBox.Position = UDim2.new(0.05, 0, 0.2, 0)
+UsernameTextBox.Size = UDim2.new(0.9, 0, 0.1, 0)
+
+BanReasonLabel.Parent = Frame
+BanReasonLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BanReasonLabel.Position = UDim2.new(0.05, 0, 0.35, 0)
+BanReasonLabel.Size = UDim2.new(0.9, 0, 0.1, 0)
+BanReasonLabel.Text = "Enter ban reason (optional):"
+
+BanReasonTextBox.Parent = Frame
+BanReasonTextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BanReasonTextBox.Position = UDim2.new(0.05, 0, 0.45, 0)
+BanReasonTextBox.Size = UDim2.new(0.9, 0, 0.1, 0)
+
+KickButton.Parent = Frame
+KickButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KickButton.Position = UDim2.new(0.05, 0, 0.6, 0)
+KickButton.Size = UDim2.new(0.9, 0, 0.1, 0)
+KickButton.Text = "Kick"
+
+KickButton.MouseButton1Click:Connect(function()
+    local player = game.Players:FindFirstChild(UsernameTextBox.Text)
+    if player then
+        if player == game.Players.LocalPlayer then
+            print("You cannot kick yourself!")
+            return
+        end
+
+        local banReason = BanReasonTextBox.Text
+
+        player:Kick("You kicked by deltauser911. For fun 🤓. Reason: " .. banReason)
+
+        print("Succesful!")
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Kick successful!";
+            Text = "You kicked " .. player.Name .. " from the server!";
+            Duration = 5;
+            Icon = "rbxassetid://414522328";
+        })
+    else
+        print("Unsuccessful!")
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Kick failed!";
+            Text = "That player could not be found!";
+            Duration = 5;
+            Icon = "rbxassetid://414522328";
+        })
+    end
+end)
