@@ -1,0 +1,51 @@
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.CoreGui -- Show on Roblox icon 2
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.3, 0, 0.5, 0) -- Make small
+frame.Position = UDim2.new(0.35, 0, 0.25, 0) -- Adjusted position
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.Parent = gui
+
+local usernameTextBox = Instance.new("player username")
+usernameTextBox.PlaceholderText = "Enter player username"
+usernameTextBox.Size = UDim2.new(0.8, 0, 0.1, 0)
+usernameTextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
+usernameTextBox.Parent = frame
+
+local banExplanationTextBox = Instance.new("ban explation")
+banExplanationTextBox.PlaceholderText = "Enter ban explanation"
+banExplanationTextBox.Size = UDim2.new(0.8, 0, 0.1, 0)
+banExplanationTextBox.Position = UDim2.new(0.1, 0, 0.25, 0) -- Under username textbox
+banExplanationTextBox.Parent = frame
+
+local kickButton = Instance.new("TextButton")
+kickButton.Text = "Kick"
+kickButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+kickButton.Position = UDim2.new(0.3, 0, 0.4, 0) -- Adjusted position
+kickButton.Parent = frame
+
+local function kickPlayer()
+    local playerName = usernameTextBox.Text
+    local banExplanation = banExplanationTextBox.Text
+    
+    local player = game.Players:FindFirstChild(playerName)
+    if player then
+        player:Kick("Deltauser911 kicked yor fun🤓. Reason: " .. banExplanation)
+        local successMessage = Instance.new("TextLabel")
+        successMessage.Text = "Successful"
+        successMessage.Size = UDim2.new(1, 0, 0.1, 0)
+        successMessage.Position = UDim2.new(0, 0, 0.55, 0) -- Adjusted position
+        successMessage.Parent = frame
+        local explosion = Instance.new("Explosion")
+        explosion.Parent = player.Character.HumanoidRootPart
+    else
+        local errorMessage = Instance.new("TextLabel")
+        errorMessage.Text = "Unsuccessful"
+        errorMessage.Size = UDim2.new(1, 0, 0.1, 0)
+        errorMessage.Position = UDim2.new(0, 0, 0.55, 0) -- Adjusted position
+        errorMessage.Parent = frame
+    end
+end
+
+kickButton.MouseButton1Click:Connect(kickPlayer)
